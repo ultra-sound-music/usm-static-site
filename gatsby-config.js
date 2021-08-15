@@ -1,19 +1,33 @@
+require('dotenv').config();
+
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
+    baseUrl: "http://localhost:8000",
     title: "Ultra Sound Music",
+    siteLanguage: "en"
   },
   plugins: [
     "gatsby-plugin-sass",
     "gatsby-plugin-gatsby-cloud",
     "gatsby-plugin-image",
+    "gatsby-plugin-react-helmet",
     {
-      resolve: "gatsby-plugin-google-analytics",
+      resolve: "gatsby-plugin-google-gtag",  // https://www.gatsbyjs.com/plugins/gatsby-plugin-google-gtag/
       options: {
-        trackingId: "G-4YPJ3R5DW2",
+        trackingIds: [
+          process.env.GOOGLE_ANALYTICS_ID
+        ],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 0,
+          send_page_view: true
+        },
+        pluginConfig: {
+          head: false,
+          respectDNT: true
+        },
       },
     },
-    "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     {
       resolve: "gatsby-plugin-manifest",
@@ -39,6 +53,6 @@ module.exports = {
         path: "./src/pages/",
       },
       __key: "pages",
-    },
+    }
   ],
 };
