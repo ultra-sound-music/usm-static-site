@@ -2,6 +2,7 @@ require('dotenv').config();
 
 module.exports = {
   siteMetadata: {
+    siteUrl: "https://ultrasoundmusic.gatsbyjs.io/",
     baseUrl: "http://localhost:8000",
     title: "Ultra Sound Music",
     siteLanguage: "en"
