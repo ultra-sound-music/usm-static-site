@@ -1,0 +1,11 @@
+@import '../../styles/global.scss';
+
+.Container {
+  max-width: 1440px;
+  margin: auto;
+  padding-top: 180px;
+
+  @media only screen and (max-width: $med-breakpoint) {
+    padding-top: 140px;
+  }  
+}

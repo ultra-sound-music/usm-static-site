@@ -1,4 +1,6 @@
-node_modules/
+.DS_Store
 .cache/
-public
 .env*
+.history
+node_modules/
+public

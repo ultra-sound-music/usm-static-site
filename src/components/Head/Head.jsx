@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-const SEO = ({ post = {} }) => {
+const Head = ({ post = {} }) => {
   const data = useStaticQuery(graphql`
     {
       site {
@@ -34,6 +34,7 @@ const SEO = ({ post = {} }) => {
   return (
     <Helmet>
       <title>{title}</title>
+
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
       {image && <meta name="image" content={image} />}
@@ -47,4 +48,4 @@ const SEO = ({ post = {} }) => {
   );
 };
 
-export default SEO;
+export default Head;

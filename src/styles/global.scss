@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap');
+
+$white: #fff;
+$baby-blue: #62A8EE;
+
+$dosis-font: 'Dosis', sans-serif;
+$roboto-font: 'Roboto', sans-serif;
+$normal-weight: 400;
+$bold-weight: 700;
+
+$small-text: 1.2rem;
+$body-text: 1.6rem;
+$med-text: 1.8rem;
+$large-text: 2.5rem;
+$x-large-text: 5rem;
+$xx-large-text: 7rem;
+
+$sml-breakpoint: 360px;
+$med-breakpoint: 680px;
+$lrg-breakpoint: 980px;
+
+@mixin border-radius($r) {
+  border-radius: $r;
+}

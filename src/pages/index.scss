@@ -1,0 +1,54 @@
+@import '../styles/global.scss';
+
+.logo {
+  text-align: center;
+}
+
+.header {
+  max-width: 640px;
+  margin: auto auto 50px auto;
+  text-align: center;
+}
+
+.title {
+  color: #fff;
+  letter-spacing: .1  rem;
+  text-transform: uppercase;
+  font-size: $xx-large-text;
+  font-family: $dosis_font;
+  font-weight: $bold_weight;
+  margin: 50px auto 20px auto;
+
+  @media only screen and (max-width: $med-breakpoint) {
+    font-size: $x-large-text;
+  }
+}
+
+.subtitle {
+  color: #fff;
+  font-size: 2.5rem;  
+  font-weight: $normal_weight;
+  letter-spacing: .1rem;
+  line-height: 3.1rem;
+  padding: 0 20px 0 20px;
+
+  @media only screen and (max-width: $med-breakpoint) {
+    font-size: $body-text;
+    line-height: normal;
+  }    
+}
+
+.social {
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+
+  @media only screen and (max-width: $sml-breakpoint) {
+    line-height: 1.8rem;
+  }  
+}
+
+.follow_us {
+  font-size: $med-text;
+  margin: 0 auto 23px auto;
+}

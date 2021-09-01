@@ -8,7 +8,12 @@ module.exports = {
     siteLanguage: "en"
   },
   plugins: [
-    "gatsby-plugin-sass",
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        sassRuleModulesTest: /\.s[ac]ss$/i,
+      }
+    },
     "gatsby-plugin-gatsby-cloud",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
@@ -33,10 +38,20 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        name: `Ultra Sound  Music`,
+        short_name: `usm`,        
+        icon: "src/images/logo.svg",
       },
     },
     "gatsby-plugin-mdx",
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /images/
+        }
+      }
+    },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {
