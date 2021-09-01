@@ -1,0 +1,22 @@
+
+@keyframes hideshow {
+  0% { opacity: 1; }
+  10% { opacity: 1; }
+  15% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.lg_1 {
+  animation: hideshow 10s ease infinite;
+}
+
+.lg_6 {
+  opacity: 0;
+  animation: hideshow 10s 1.5s ease infinite;
+}
+
+.lg_5 {
+  opacity: 0;
+  animation: hideshow 10s 3s ease infinite;
+} 
+ 

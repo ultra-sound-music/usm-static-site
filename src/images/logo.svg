@@ -1,9 +1,51 @@
-<svg width="63" height="81" viewBox="0 0 63 81" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M37.5 1.5L40.5 5V74.5L37.5 78.5V1.5Z" fill="white"/>
-<path d="M46.5 10.5L48.5 13V67L46.5 69.5V10.5Z" fill="white"/>
-<path d="M55 22L56 23.1932V56.2045L55 57V22Z" fill="white"/>
-<path d="M62 37L63 38V42L62 43V37Z" fill="white"/>
-<path d="M33 0L28 6V74.2143L33 80.5V0Z" fill="white"/>
-<path d="M24 9.5L17 18.5V61.3571L24 70.5V9.5Z" fill="white"/>
-<path d="M13.5 23L0 40L13.5 57V23Z" fill="white"/>
+<svg class="lg_0" width="63" height="81" viewBox="0 0 63 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @keyframes hideshow {
+        0% { opacity: 1; }
+        14% { opacity: 0; }
+        22% { opacity: 1; }
+        46% { opacity: 0; }
+        59% { opacity: 1; }
+        76% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      .lg_1 {
+        animation: hideshow 10s ease 3;
+      }
+
+      .lg_2 {
+        animation: hideshow 10s 1s ease 3;
+      }
+
+      .lg_3 {
+        animation: hideshow 10s 1.5s ease 3;
+      }
+
+      .lg_4 {
+        animation: hideshow 10s 2s ease 3;
+      }      
+
+      .lg_5 {
+        animation: hideshow 10s 2.5s ease 3;
+      }
+
+      .lg_6 {
+        animation: hideshow 10s 3s ease 3;
+      } 
+
+      .lg_7 {
+        animation: hideshow 10s 3.5s ease 3;
+      } 
+    </style>
+  </defs>
+
+  <path class="lg_1" d="M37.5 1.5L40.5 5V74.5L37.5 78.5V1.5Z" fill="white"/>
+  <path class="lg_2" d="M46.5 10.5L48.5 13V67L46.5 69.5V10.5Z" fill="white"/>
+  <path class="lg_3" d="M55 22L56 23.1932V56.2045L55 57V22Z" fill="white"/>
+  <path class="lg_4" d="M62 37L63 38V42L62 43V37Z" fill="white"/>
+  <path class="lg_5" d="M33 0L28 6V74.2143L33 80.5V0Z" fill="white"/>
+  <path class="lg_6" d="M24 9.5L17 18.5V61.3571L24 70.5V9.5Z" fill="white"/>
+  <path class="lg_7" d="M13.5 23L0 40L13.5 57V23Z" fill="white"/>
 </svg>
