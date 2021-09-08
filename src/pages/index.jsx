@@ -24,7 +24,7 @@ class Index extends React.Component {
     return (
       <AppLayout withNavBar={enableMemPlayer}>
         <Container adjustForNavBar={enableMemPlayer}>
-          <div className={styles.Index}>
+          <div className='Index'>
             <div className={styles.logo}>
               <img src={logo} className={styles.logoImg} alt="Logo" />
             </div>

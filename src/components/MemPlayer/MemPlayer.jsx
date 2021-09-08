@@ -50,25 +50,17 @@ class MemPlayer extends React.Component {
     const newStr = txId.slice(noteIndex + 1);
     const octaveIndex = newStr.search(/[01234]/);
     const octave = newStr[octaveIndex];
-    // const octave = (newStr[octaveIndex] % 4);
-    const synth = noteIndex % 5;
 
     const counts = [4, 8, 16, 32, 64];
     const count = counts[getRandomInt(0, 4)];
-    // const octave = noteIndex % 6;
-    // const noteIndex = txId.indexOf(note);
-    // const segment = txId.slice(0, noteIndex);
-    // const segIndex = segment.search(/\d/);
 
-    console.log(`note: ${note}${octave}`, `count: ${count}`);
-    const availableSynthts = this.synths.filter((synth, index) => this.state.soundKeys[index])
+    // console.log(`note: ${note}${octave}`, `count: ${count}`);
+    const availableSynths = this.synths.filter((synth, index) => this.state.soundKeys[index])
 
-    if (availableSynthts.length) {
-      availableSynthts[noteIndex % availableSynthts.length].triggerAttackRelease(`${note}${octave}`, `${count}n`);
+    if (availableSynths.length) {
+      availableSynths[noteIndex % availableSynths.length].triggerAttackRelease(`${note}${octave}`, `${count}n`);
     }
-    
-    this.synths[synth].triggerAttackRelease(`${note}${octave}`, `${count}n`);
-
+  
     const txObj = {
       txId,
       noteStart: noteIndex,
@@ -118,6 +110,8 @@ class MemPlayer extends React.Component {
     const arr = [];
     if (i === 0) {
       arr.push(<span> &gt; </span>);
+    } else {
+      arr.push(<span>&nbsp;&nbsp;&nbsp;</span>)
     }
     arr.push(<span key="1">{txId.slice(0, noteStart)}</span>);
     arr.push(<span key="2" className={styles.highlight}>{txId.slice(noteStart, noteEnd + 1)}</span>);
@@ -135,7 +129,7 @@ class MemPlayer extends React.Component {
     return (
       <div className='MemPlayer'>
         <div className={styles.title}>Play the Mempool</div>
-        <div className={styles.controls}>
+        <div className='controls'>
           <div className={styles.keyboard}>
             {this.state.soundKeys.map(this.renderKey)}      
           </div>
@@ -145,7 +139,7 @@ class MemPlayer extends React.Component {
         </div>
         <pre>
           <code className={styles.feed}>
-            <ul className={styles.txList}>
+            <ul className='txList'>
               {this.state.transactions.map(this.renderTranscactionId)}
             </ul>
           </code>
