@@ -8,9 +8,9 @@ export function TopNav() {
 
   return (
     <div className={styles.topNav}>
-      <div className={styles.socialLinks}>
-        {discordUrl && <div><a href={discordUrl} className={styles.socialLink}>Discord</a></div>}
-        {twitterUrl && <div><a href={twitterUrl} className={styles.socialLink}>Twitter</a></div>}
+      <div className={styles.social}>
+        {discordUrl && <div><a href={discordUrl} className={styles.socialLink} target="_blank" rel="noreferrer">Discord</a></div>}
+        {twitterUrl && <div><a href={twitterUrl} className={styles.socialLink} target="_blank" rel="noreferrer">Twitter</a></div>}
       </div>
     </div>
   )

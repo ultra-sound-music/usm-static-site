@@ -40,18 +40,18 @@ module.exports = {
       options: {
         name: `Ultra Sound  Music`,
         short_name: `usm`,        
-        icon: "src/images/logo.svg",
+        icon: "src/images/logo.png",
       },
     },
     "gatsby-plugin-mdx",
-    {
-      resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: /images/
-        }
-      }
-    },
+    // {
+    //   resolve: "gatsby-plugin-react-svg",
+    //   options: {
+    //     rule: {
+    //       include: /images/
+    //     }
+    //   }
+    // },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {

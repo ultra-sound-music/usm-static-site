@@ -6,7 +6,7 @@
   padding-top: 50px;
 }
 
-.socialLinks {
+.social {
   display: flex;
   justify-content: flex-end; 
   margin-right: 50px;
@@ -15,6 +15,5 @@
 .socialLink {
   color: $color-usm-yellow;
   font-size: $text-med-lrg;
-  font-weight: $font-weight-bold;
   margin-left: 100px;
 }

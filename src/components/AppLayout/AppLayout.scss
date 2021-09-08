@@ -9,6 +9,11 @@ html, body {
   height: 100%;
 }
 
+body {
+  font-family: $font-family-body;  
+  font-weight: $font-weight-bold;
+}
+
 :global {
   #___gatsby, #gatsby-focus-wrapper {
     height: 100%;

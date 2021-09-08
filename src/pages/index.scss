@@ -5,17 +5,25 @@
   margin-bottom: 40px;
 }
 
+.logoImg {
+  width: 80px;
+}
+
 .header {
   text-align: center;
   margin-bottom: 65px;
 }
 
 .title {
+  font-family: $font-family-header;
+  font-weight: $font-weight-normal;  
   font-size: $text-xx-lrg;
   margin-bottom: 15px;
 }
 
 .subtitle {
+  font-family: $font-family-header;
+  font-weight: $font-weight-normal;
   font-size: $text-lrg;
   line-height: 1.2em;
 }
@@ -28,5 +36,4 @@
 .socialLink {
   color: $color-usm-yellow;
   font-size: $text-med-lrg;
-  font-weight: $font-weight-bold;  
 }

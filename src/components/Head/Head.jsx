@@ -16,6 +16,8 @@ const Head = ({ post = {} }) => {
   `);
 
   const defaults = data.site.siteMetadata;
+  const latoFont = process.env.GATSBY_FONT_LATO;
+  const motorFont = process.env.GATSBY_FONT_MOTOR;  
 
   if (defaults.baseUrl === '' && typeof window !== 'undefined') {
     defaults.baseUrl = window.location.origin;
@@ -34,6 +36,9 @@ const Head = ({ post = {} }) => {
   return (
     <Helmet>
       <title>{title}</title>
+
+      <link rel="stylesheet" href={latoFont} />
+      <link rel="stylesheet" href={motorFont} />
 
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />

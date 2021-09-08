@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap');
-
 $white: #fff;
 $baby-blue: #62A8EE;
 $color-dark-gray: #1D1C2F;
@@ -9,9 +6,10 @@ $color-mauve: #9592C1;
 $color-purple: #5D67C7;
 $color-near-black: #1D1C2F;
 
-
-$dosis-font: 'Dosis', sans-serif;
-$roboto-font: 'Roboto', sans-serif;
+$font-lato: 'Lato', sans-serif;
+$font-motor: 'motor', monospace;
+$font-family-header: $font-motor;
+$font-family-body: $font-lato;
 $font-weight-normal: 400;
 $font-weight-bold: 700;
 
