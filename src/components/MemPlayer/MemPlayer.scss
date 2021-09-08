@@ -44,6 +44,24 @@
   background-color: $color-dark-gray;
 }
 
+.player{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.playButton {
+  border-radius: 37px;
+  border: none;
+  background-color: $color-purple;
+  color: $color-near-black;
+  display: inline-block;
+  line-height: 5.2rem;
+  width: 180px;
+  text-decoration: none;
+  margin-top: 80px;
+
+}
+
 .feed {
 
 }

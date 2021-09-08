@@ -30,7 +30,7 @@ class Index extends React.Component {
     console.log('env', process.env.GATSBY_ENABLE_MEM_PLAYER);
     console.log('state', this.state.enableMemPlayer);
     return (
-      <AppLayout withNavBar={!this.state.enableMemPlayer}>
+      <AppLayout withNavBar={this.state.enableMemPlayer}>
         <Container>
           <div className={styles.logo}>
             <Logo />
@@ -40,7 +40,7 @@ class Index extends React.Component {
             <h2 className={styles.subtitle}>Building the crossroads between music and NFT’s. <br />Join our community to get notified on the launch.</h2>
           </div>
 
-          {this.state.enableMemPlayer && this.renderSocialLinks()}
+          {!this.state.enableMemPlayer && this.renderSocialLinks()}
           {this.state.enableMemPlayer && <MemPlayer />}
         </Container>
       </AppLayout>      

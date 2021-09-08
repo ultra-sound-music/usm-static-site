@@ -131,7 +131,7 @@ class MemPlayer extends React.Component {
       isStreaming
     } = this.state;
 
-    const toggleText = isStreaming ? 'Stop' : 'Play';
+    const playButtonText = isStreaming ? 'Stop' : 'Play';
 
     return (
       <div className='MemPlayer'>
@@ -140,7 +140,9 @@ class MemPlayer extends React.Component {
           <div className={styles.keyboard}>
             {this.state.soundKeys.map(this.renderKey)}      
           </div>
-          <button onClick={(this.toggleStream)}>{toggleText}</button>
+          <div className={styles.player}>
+            <button className={styles.playButton} onClick={this.toggleStream}>{playButtonText}</button>
+          </div>
         </div>
         <div className={styles.feed}>
           <ul className={styles.txList}>
