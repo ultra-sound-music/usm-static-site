@@ -1,0 +1,57 @@
+@import '../../styles/global.scss';
+
+.MemPlayer {
+
+}
+
+.title {
+  font-size: $text-med-lrg;
+  text-align: center;
+  font-weight: $font-weight-bold;
+  margin-bottom: 20px;
+}
+
+.controls {
+}
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-image: linear-gradient(90deg, $color-mauve, $color-mauve);
+  background-size: 100% 5px;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  position:absolute;
+  left:0;
+  right:0;
+}
+
+.soundKey {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  border: 5px solid $color-mauve;
+  border-radius: 100%;
+}
+
+.soundKey__on {
+  background-color: $color-usm-yellow;
+}
+
+.soundKey__off {
+  background-color: $color-dark-gray;
+}
+
+.feed {
+
+}
+
+.txList {
+
+}
+
+.highlight {
+  background-color: $color-usm-yellow; 
+}

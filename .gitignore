@@ -2,5 +2,6 @@
 .cache/
 .env*
 .history
+.vscode
 node_modules/
 public

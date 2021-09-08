@@ -2,53 +2,31 @@
 
 .logo {
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .header {
-  max-width: 640px;
-  margin: auto auto 50px auto;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .title {
-  color: #fff;
-  letter-spacing: .1  rem;
-  text-transform: uppercase;
-  font-size: $xx-large-text;
-  font-family: $dosis_font;
-  font-weight: $bold_weight;
-  margin: 50px auto 20px auto;
-
-  @media only screen and (max-width: $med-breakpoint) {
-    font-size: $x-large-text;
-  }
+  font-size: $text-xx-lrg;
+  margin-bottom: 15px;
 }
 
 .subtitle {
-  color: #fff;
-  font-size: 2.2rem;  
-  font-weight: $normal_weight;
-  letter-spacing: .1rem;
-  line-height: 3.1rem;
-  padding: 0 20px 0 20px;
-
-  @media only screen and (max-width: $med-breakpoint) {
-    font-size: $body-text;
-    line-height: normal;
-  }    
+  font-size: $text-lrg;
+  line-height: 1.2em;
 }
 
 .social {
-  color: #fff;
+  margin: 0 auto 40px auto;;
   text-align: center;
-  font-size: 1.6rem;
-
-  @media only screen and (max-width: $sml-breakpoint) {
-    line-height: 1.8rem;
-  }  
 }
 
-.follow_us {
-  font-size: $med-text;
-  margin: 0 auto 23px auto;
+.socialLink {
+  color: $color-usm-yellow;
+  font-size: $text-med-lrg;
+  font-weight: $font-weight-bold;  
 }

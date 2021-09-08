@@ -1,14 +1,16 @@
 import React from "react";
+
 import Head from '../Head/Head';
-// import TopNav from '../TopNav/TopNav';
+import TopNav from '../TopNav/TopNav';
 
-import './AppLayout.scss';
+import * as styles from './AppLayout.scss';
 
-export default function AppLayout({ children }) {
+export default function AppLayout({ children, withNavBar }) {
+  console.log('adfsdfaaaa', withNavBar)
   return (
-    <div className='AppLayout'>
+    <div className={styles.AppLayout}>
       <Head />
-      {/* <TopNav /> */}
+      {withNavBar && <TopNav />}
       {children}
     </div>
   )
