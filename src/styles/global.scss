@@ -24,6 +24,7 @@ $text-xx-lrg: 6.5rem;
 $sml-breakpoint: 360px;
 $med-breakpoint: 680px;
 $lrg-breakpoint: 980px;
+$break-container-padding: 1300px;
 
 @mixin border-radius($r) {
   border-radius: $r;

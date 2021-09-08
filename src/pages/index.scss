@@ -29,6 +29,8 @@
 }
 
 .social {
+  display: flex;
+  justify-content: center;
   margin: 0 auto 40px auto;;
   text-align: center;
 }
@@ -36,4 +38,5 @@
 .socialLink {
   color: $color-usm-yellow;
   font-size: $text-med-lrg;
+  margin: 0 50px;
 }

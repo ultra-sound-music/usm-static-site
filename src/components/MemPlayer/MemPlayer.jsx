@@ -95,9 +95,9 @@ class MemPlayer extends React.Component {
   toggleStream = () => {
     const startStreaming = !this.state.isStreaming;
     if (startStreaming) {
-      this.provider.on("pending", this.processTransaction);      
+      this.provider.on('pending', this.processTransaction);      
     } else {
-      this.provider.off("pending", this.processTransaction);
+      this.provider.off('pending', this.processTransaction);
     }
 
     this.setState({
@@ -115,7 +115,6 @@ class MemPlayer extends React.Component {
   }
 
   renderTranscactionId = ({ txId, noteStart, noteEnd }, i) => {
-    // const children = Array.from(txId).map((char) => <span>{char}</span>)
     const arr = [];
     if (i === 0) {
       arr.push(<span> &gt; </span>);
