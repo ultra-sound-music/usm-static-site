@@ -1,8 +1,56 @@
 @import '../../styles/global.scss';
 
+@keyframes glow {
+  0% {
+    border-color: $color-mauve;
+  }
+  30% {
+    border-color: $color-mauve;
+  }
+  to {
+    border-color: $color-usm-yellow;
+  }
+}
+
+@keyframes higlight {
+  0% {
+    border-color: $color-purple;
+  }
+  40% {
+    border-color: $color-usm-yellow;
+  }
+  60% {
+    border-color: $color-usm-yellow;
+  }
+  to {
+    border-color: $color-purple;
+  }
+}
+
 .MemPlayer {
 
 }
+
+.editSoundsButton {
+  display: inline-block;
+  margin: 0 20px;
+  border: 2px solid $color-purple;
+  border-radius: 100%;
+  line-height: 2.8rem;;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-usm-yellow;
+  }
+}
+
+.addSoundButton__highlight {
+  // animation: 2s ease-in 0s 1 higlight;
+  animation: 3s ease-in-out 0s 1 alternate higlight;
+}
+
 
 .title {
   font-size: $text-med-lrg;
@@ -45,6 +93,10 @@
   background-color: $color-dark-gray;
 }
 
+.soundKey__glow {
+  animation: 2s ease-in 1s infinite alternate glow;
+}
+
 .player{
   margin: 0 auto 40px;
   text-align: center;
@@ -65,6 +117,11 @@
   text-transform: uppercase;
   margin-top: 80px;
   cursor: pointer;
+}
+
+.playButton__disabled {
+  background-color: #696C8F;
+  cursor: default;
 }
 
 .feed {

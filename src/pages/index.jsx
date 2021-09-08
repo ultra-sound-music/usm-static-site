@@ -6,21 +6,30 @@ import logo from '../images/logo.png';
 
 import * as styles from './index.scss';
 
-const discordUrl = process.env.GATSBY_DISCORD_URL;
-const twitterUrl = process.env.GATSBY_TWITTER_URL;
-const enableMemPlayer = (process.env.GATSBY_ENABLE_MEM_PLAYER ?? '').toLowerCase() === 'true' ? true : false
+const DISCORD_URL = process.env.GATSBY_DISCORD_URL;
+const TWITTER_URL = process.env.GATSBY_TWITTER_URL;
+const MEM_PLAYER_ENABLED = (process.env.GATSBY_MEM_PLAYER_ENABLED ?? '').toLowerCase() === 'true' ? true : false
 
 class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this.enableMemPlayer = MEM_PLAYER_ENABLED || new URLSearchParams(props?.location?.search ?? '').has('memplayer');
+  }
+
   renderSocialLinks = () => {
     return (
       <div className={styles.social}>
-        {discordUrl && <div><a href={discordUrl} className={styles.socialLink} target="_blank" rel="noreferrer">Discord</a></div>}
-        {twitterUrl && <a href={twitterUrl} className={styles.socialLink} target="_blank" rel="noreferrer">Twitter</a>}
+        {DISCORD_URL && <div><a href={DISCORD_URL} className={styles.socialLink} target="_blank" rel="noreferrer">Discord</a></div>}
+        {TWITTER_URL && <a href={TWITTER_URL} className={styles.socialLink} target="_blank" rel="noreferrer">Twitter</a>}
       </div>      
     )    
   }
 
   render () {
+    const {
+      enableMemPlayer = false
+    } = this;
+
     return (
       <AppLayout withNavBar={enableMemPlayer}>
         <Container adjustForNavBar={enableMemPlayer}>

@@ -6,6 +6,8 @@ import * as Tone from 'tone'
 
 import * as styles from './MemPlayer.scss';
 
+const availableSounds = [Tone.Synth, Tone.AMSynth, Tone.FMSynth, Tone.MembraneSynth, Tone.PolySynth];
+
 const throttle = pThrottle({
   limit: 1,
   interval: 250
@@ -18,17 +20,23 @@ function getRandomInt(min, max) {
 }
 
 class MemPlayer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.addSoundButtonRef = React.createRef();
+  }
+
   state = {
     transactions: [],
-    soundKeys: Array.from({length: 5}, () => false),
-    isStreaming: false
+    activeKeys: [],
+    soundKeys: [],
+    isStreaming: false,
+    highlighAddButton: false
   }
 
   componentDidMount() {
     const url = `${process.env.GATSBY_WS_URL}`;
 
     this.processTransaction = throttle(this.onPendingTransaction);
-    this.synths = [new Tone.Synth().toDestination(), new Tone.AMSynth().toDestination(), new Tone.FMSynth().toDestination(), new Tone.MembraneSynth().toDestination(), new Tone.PolySynth().toDestination()];
     this.provider = new ethers.providers.WebSocketProvider(url);
   }
 
@@ -54,9 +62,8 @@ class MemPlayer extends React.Component {
     const counts = [4, 8, 16, 32, 64];
     const count = counts[getRandomInt(0, 4)];
 
-    // console.log(`note: ${note}${octave}`, `count: ${count}`);
-    const availableSynths = this.synths.filter((synth, index) => this.state.soundKeys[index])
-
+    console.debug(`note: ${note}${octave}`, `count: ${count}`);
+    const availableSynths = this.state.soundKeys.filter((synth, index) => this.state.activeKeys.includes(index));
     if (availableSynths.length) {
       availableSynths[noteIndex % availableSynths.length].triggerAttackRelease(`${note}${octave}`, `${count}n`);
     }
@@ -72,22 +79,34 @@ class MemPlayer extends React.Component {
     });  
   }
 
-  toggleKey = (keyId) => {
-    const soundKeys = this.state.soundKeys.map((isOn, id) => {
-      if (keyId === id) {
-        return !isOn;
-      }
+  resetAddSoundButtonAnimation() {
+    this.addSoundButtonRef.current.style.animation = 'none';
+    /* eslint-disable no-unused-expressions */
+    this.addSoundButtonRef.current.offsetHeight; /* trigger reflow */
+    this.addSoundButtonRef.current.style.animation = null; 
+  }
 
-      return isOn;
+  highlightAddButton = () => {
+    this.resetAddSoundButtonAnimation();
+    if (this.state.highlighAddButton) return;
+
+    this.setState({
+      highlighAddButton: true
     });
-
-    this.setState({ soundKeys });
   }
 
   toggleStream = () => {
+    if (this.state.soundKeys.length <= 0 && !this.state.isStreaming) {
+      this.highlightAddButton();
+    }
+
     const startStreaming = !this.state.isStreaming;
     if (startStreaming) {
-      this.provider.on('pending', this.processTransaction);      
+      if (this.state.soundKeys.length <= 0) {
+        return;
+      }
+
+      this.provider.on('pending', this.processTransaction);
     } else {
       this.provider.off('pending', this.processTransaction);
     }
@@ -95,11 +114,51 @@ class MemPlayer extends React.Component {
     this.setState({
       isStreaming: startStreaming
     });
+  }  
+
+  deActivateKey = (keyId) => {
+    const activeKeys = this.state.activeKeys.filter((id) => id !== keyId);
+    this.setState({ activeKeys });
   }
 
-  renderKey = (isOn, keyId) => {
-    const keyState = isOn ? 'on' : 'off';
-    const className = cn(styles.soundKey, styles[`soundKey__${keyState}`]);
+  activateKey = (keyId) => {
+    const activeKeys = Array.from(this.state.activeKeys);
+    activeKeys.push(keyId);;
+    this.setState({ activeKeys });
+  }
+
+  toggleKey = (keyId) => {
+    const isActivate = this.state.activeKeys.includes(keyId);
+    isActivate ? this.deActivateKey(keyId) : this.activateKey(keyId);
+  }
+
+  addSound = () => {
+    if (this.state.soundKeys.length >= 12) {
+      return;
+    }
+
+    const soundKeys = Array.from(this.state.soundKeys);
+    const sound = availableSounds[getRandomInt(0, availableSounds.length)];
+    soundKeys.push(new sound().toDestination());
+    this.setState({ soundKeys });
+  }
+
+  removeSound = () => {
+    if (this.state.soundKeys.length <= 0) {
+      return;
+    }
+
+    const keyIdToBeRemoved = this.state.soundKeys.length - 1;
+    this.deActivateKey(keyIdToBeRemoved);
+
+    const soundKeys = this.state.soundKeys.slice(0, this.state.soundKeys.length  - 1);
+    this.setState({ soundKeys });
+  }
+
+  renderKey = (sound, keyId) => {
+    const keyState = !!this.state.activeKeys.includes(keyId) ? 'on' : 'off';
+    const shouldGlow = this.state.activeKeys.length === 0 && this.state.isStreaming  ;
+    const className = cn(styles.soundKey, styles[`soundKey__${keyState}`], {[styles.soundKey__glow]: shouldGlow});
 
     return (
       <div key={keyId} className={className} onClick={() => this.toggleKey(keyId)}></div>
@@ -124,17 +183,19 @@ class MemPlayer extends React.Component {
       isStreaming
     } = this.state;
 
+    const addSoundButtonClass = cn(styles.editSoundsButton, {[styles.addSoundButton__highlight]: this.state.highlighAddButton})
+    const playButtonIsDisabled = this.state.soundKeys.length === 0 && !this.state.isStreaming;
+    const playButtonClass = cn(styles.playButton, {[styles.playButton__disabled]: playButtonIsDisabled})
     const playButtonText = isStreaming ? 'Stop' : 'Play';
-
     return (
       <div className='MemPlayer'>
-        <div className={styles.title}>Play the Mempool</div>
+        <div className={styles.title}><span className={styles.editSoundsButton} onClick={this.removeSound}>-</span> Play the Mempool <span className={addSoundButtonClass} onClick={this.addSound} ref={this.addSoundButtonRef}>+</span></div>
         <div className='controls'>
           <div className={styles.keyboard}>
             {this.state.soundKeys.map(this.renderKey)}      
           </div>
           <div className={styles.player}>
-            <button className={styles.playButton} onClick={this.toggleStream}>{playButtonText}</button>
+            <a className={playButtonClass} onClick={this.toggleStream} disabled={playButtonIsDisabled}>{playButtonText}</a>
           </div>
         </div>
         <pre>
