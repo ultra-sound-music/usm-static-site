@@ -46,7 +46,7 @@
 }
 
 .player{
-  margin: 0 auto;
+  margin: 0 auto 40px;
   text-align: center;
 }
 
@@ -56,21 +56,35 @@
   background-color: $color-purple;
   color: $color-near-black;
   display: inline-block;
+  font-family: $font-family-body;
+  font-size: $text-med-lrg;
+  font-weight: $font-weight-bold;
   line-height: 5.2rem;
   width: 180px;
   text-decoration: none;
+  text-transform: uppercase;
   margin-top: 80px;
   cursor: pointer;
 }
 
 .feed {
-
+  display: block;
+  font-size: $text-small;
+  width: 580px;
+  margin: 0 auto;
+  -webkit-mask-image: linear-gradient(180deg, $color-dark-gray 0, transparent 10rem);
+  mask-image: linear-gradient(180deg, $color-dark-gray 0, transparent 10rem);
 }
 
 .txList {
 
 }
 
+.txItem {
+  font-family: monospace;
+  margin-bottom: 30px;
+}
+
 .highlight {
-  background-color: $color-usm-yellow; 
+  background-color: rgba(255, 255, 126, .5); 
 }

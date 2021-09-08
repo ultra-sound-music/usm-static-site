@@ -6,7 +6,6 @@ import TopNav from '../TopNav/TopNav';
 import * as styles from './AppLayout.scss';
 
 export default function AppLayout({ children, withNavBar }) {
-  console.log('adfsdfaaaa', withNavBar)
   return (
     <div className={styles.AppLayout}>
       <Head />

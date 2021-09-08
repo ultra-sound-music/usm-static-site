@@ -76,7 +76,7 @@ class MemPlayer extends React.Component {
     }
 
     this.setState({
-      transactions: [txObj].concat(this.state.transactions).slice(0, 25)
+      transactions: [txObj].concat(this.state.transactions).slice(0, 15)
     });  
   }
 
@@ -143,11 +143,13 @@ class MemPlayer extends React.Component {
             <button className={styles.playButton} onClick={this.toggleStream}>{playButtonText}</button>
           </div>
         </div>
-        <div className={styles.feed}>
-          <ul className={styles.txList}>
-            {this.state.transactions.map(this.renderTranscactionId)}
-          </ul>
-        </div>
+        <pre>
+          <code className={styles.feed}>
+            <ul className={styles.txList}>
+              {this.state.transactions.map(this.renderTranscactionId)}
+            </ul>
+          </code>
+        </pre>
       </div>
     );    
   }

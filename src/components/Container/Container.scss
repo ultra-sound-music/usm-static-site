@@ -10,3 +10,11 @@
     padding-top: 15%;
   }  
 }
+
+.adjustForNavBar {
+  padding-top: 65px;
+
+  @media only screen and (max-width: $break-container-padding) {
+    padding-top: 5%;
+  }  
+}

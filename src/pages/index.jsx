@@ -23,7 +23,7 @@ class Index extends React.Component {
   render () {
     return (
       <AppLayout withNavBar={enableMemPlayer}>
-        <Container>
+        <Container adjustForNavBar={enableMemPlayer}>
           <div className={styles.Index}>
             <div className={styles.logo}>
               <img src={logo} className={styles.logoImg} alt="Logo" />
