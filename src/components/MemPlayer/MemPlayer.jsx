@@ -106,6 +106,11 @@ class MemPlayer extends React.Component {
       }
 
       this.provider.on('pending', this.processTransaction);
+      if (![WebSocket.OPEN, WebSocket.OPENING].includes(this.provider._websocket.readyState)) {
+        this.provider.off('pending', this.processTransaction);
+        alert('This session has ended please refresh and try again')
+        return;
+      }
     } else {
       this.provider.off('pending', this.processTransaction);
     }
