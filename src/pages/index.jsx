@@ -12,6 +12,10 @@ const MEM_PLAYER_ENABLED = (process.env.GATSBY_MEM_PLAYER_ENABLED ?? '').toLower
 const WEBSOCKET_URL = process.env.GATSBY_WS_URL;
 
 class Index extends React.Component {
+  state = {
+    hasMounted: false // Gatsby uses SSR. We use this flag to force React into re-rendering after hydrating the DOM on initial page load
+  };
+
   constructor(props) {
     super(props);
     const memPlayerEnabled = MEM_PLAYER_ENABLED || new URLSearchParams(props?.location?.search ?? '').has('memplayer');
@@ -19,7 +23,13 @@ class Index extends React.Component {
       this.enableMemPlayer = true;
     } else {
       console.error('Unable to initialize the MemPlayer. A Connection to an Ethereum node is required.');
-    }
+    }    
+  }
+
+  componentDidMount() {
+    this.setState({
+      hasMounted: true
+    });
   }
 
   renderSocialLinks = () => {
@@ -35,6 +45,10 @@ class Index extends React.Component {
     const {
       enableMemPlayer = false
     } = this;
+
+    if (!this.state.hasMounted) {
+      return null;
+    }
 
     return (
       <AppLayout withNavBar={enableMemPlayer}>

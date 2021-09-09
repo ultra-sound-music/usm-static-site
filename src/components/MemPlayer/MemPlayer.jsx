@@ -151,7 +151,7 @@ class MemPlayer extends React.Component {
     if (this.state.soundKeys.length >= 12) {
       return;
     }
-    
+        
     const soundKeys = Array.from(this.state.soundKeys);
     const sound = this.getRandomSound();
     soundKeys.push(new sound().toDestination());
