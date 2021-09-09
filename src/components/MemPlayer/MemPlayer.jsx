@@ -6,7 +6,8 @@ import * as Tone from 'tone'
 
 import * as styles from './MemPlayer.scss';
 
-const availableSounds = [Tone.Synth, Tone.AMSynth, Tone.FMSynth, Tone.MembraneSynth, Tone.PolySynth];
+const WEBSOCKET_URL = process.env.GATSBY_WS_URL;
+const availableSounds = [Tone.Synth, Tone.AMSynth, Tone.FMSynth, Tone.MembraneSynth, Tone.PolySynth, Tone.Synth, Tone.AMSynth, Tone.FMSynth, Tone.MembraneSynth, Tone.PolySynth, Tone.MembraneSynth, Tone.PolySynth];
 
 const throttle = pThrottle({
   limit: 1,
@@ -34,10 +35,8 @@ class MemPlayer extends React.Component {
   }
 
   componentDidMount() {
-    const url = `${process.env.GATSBY_WS_URL}`;
-
     this.processTransaction = throttle(this.onPendingTransaction);
-    this.provider = new ethers.providers.WebSocketProvider(url);
+    this.provider = new ethers.providers.WebSocketProvider(WEBSOCKET_URL);
   }
 
   componentWillUnmount() {
@@ -132,13 +131,29 @@ class MemPlayer extends React.Component {
     isActivate ? this.deActivateKey(keyId) : this.activateKey(keyId);
   }
 
+  getRandomSound = () => {
+    const {
+      soundKeys
+    } = this.state;
+
+    const unusedSounds = availableSounds.filter((sound) => {
+      return !soundKeys.some((key) => key instanceof sound);
+    });
+
+    if (unusedSounds.length === 0) {
+      return Tone.Synth;
+    }
+
+    return unusedSounds[getRandomInt(0, unusedSounds.length)];
+  }
+
   addSound = () => {
     if (this.state.soundKeys.length >= 12) {
       return;
     }
-
+    
     const soundKeys = Array.from(this.state.soundKeys);
-    const sound = availableSounds[getRandomInt(0, availableSounds.length)];
+    const sound = this.getRandomSound();
     soundKeys.push(new sound().toDestination());
     this.setState({ soundKeys });
   }

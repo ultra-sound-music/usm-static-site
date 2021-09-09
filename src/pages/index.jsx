@@ -8,12 +8,18 @@ import * as styles from './index.scss';
 
 const DISCORD_URL = process.env.GATSBY_DISCORD_URL;
 const TWITTER_URL = process.env.GATSBY_TWITTER_URL;
-const MEM_PLAYER_ENABLED = (process.env.GATSBY_MEM_PLAYER_ENABLED ?? '').toLowerCase() === 'true' ? true : false
+const MEM_PLAYER_ENABLED = (process.env.GATSBY_MEM_PLAYER_ENABLED ?? '').toLowerCase() === 'true' ? true : false;
+const WEBSOCKET_URL = process.env.GATSBY_WS_URL;
 
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.enableMemPlayer = MEM_PLAYER_ENABLED || new URLSearchParams(props?.location?.search ?? '').has('memplayer');
+    const memPlayerEnabled = MEM_PLAYER_ENABLED || new URLSearchParams(props?.location?.search ?? '').has('memplayer');
+    if (memPlayerEnabled && WEBSOCKET_URL) {
+      this.enableMemPlayer = true;
+    } else {
+      console.error('Unable to initialize the MemPlayer. A Connection to an Ethereum node is required.');
+    }
   }
 
   renderSocialLinks = () => {

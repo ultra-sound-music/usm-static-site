@@ -16,10 +16,10 @@
   0% {
     border-color: $color-purple;
   }
-  40% {
+  10% {
     border-color: $color-usm-yellow;
   }
-  60% {
+  50% {
     border-color: $color-usm-yellow;
   }
   to {
@@ -47,8 +47,7 @@
 }
 
 .addSoundButton__highlight {
-  // animation: 2s ease-in 0s 1 higlight;
-  animation: 3s ease-in-out 0s 1 alternate higlight;
+  animation: 2s ease-in-out 0s 1 alternate higlight;
 }
 
 
