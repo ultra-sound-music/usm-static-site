@@ -210,7 +210,7 @@ class MemPlayer extends React.Component {
             {this.state.soundKeys.map(this.renderKey)}      
           </div>
           <div className={styles.player}>
-            <a className={playButtonClass} onClick={this.toggleStream} disabled={playButtonIsDisabled}>{playButtonText}</a>
+            <button className={playButtonClass} onClick={this.toggleStream}>{playButtonText}</button>
           </div>
         </div>
         <pre>
