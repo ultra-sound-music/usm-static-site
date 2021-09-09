@@ -137,6 +137,20 @@
 .txItem {
   font-family: monospace;
   margin-bottom: 30px;
+  
+  a {
+    color: $white;
+    
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &:not([href]) {
+      text-decoration: none;
+      cursor: default;
+    }    
+  }
 }
 
 .highlight {

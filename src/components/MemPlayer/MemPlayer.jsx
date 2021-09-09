@@ -183,14 +183,24 @@ class MemPlayer extends React.Component {
   renderTranscactionId = ({ txId, noteStart, noteEnd }, i) => {
     const arr = [];
     if (i === 0) {
-      arr.push(<span> &gt; </span>);
+      arr.push(<span key="0"> &gt; </span>);
     } else {
-      arr.push(<span>&nbsp;&nbsp;&nbsp;</span>)
+      arr.push(<span key="0">&nbsp;&nbsp;&nbsp;</span>)
     }
+
+    const anchorProps = {
+      target: '_blank',
+      rel: 'noreferrer'
+    };
+
+    if (process.env.GATSBY_ETH_EXPLORER) {
+      anchorProps.href = `${process.env.GATSBY_ETH_EXPLORER}${txId}`;
+    }
+
     arr.push(<span key="1">{txId.slice(0, noteStart)}</span>);
     arr.push(<span key="2" className={styles.highlight}>{txId.slice(noteStart, noteEnd + 1)}</span>);
     arr.push(<span key="3">{txId.slice(noteEnd + 1)}</span>);
-    return <li key={i} className={styles.txItem}>{arr}</li>;
+    return <li key={i} className={styles.txItem}><a {...anchorProps}>{arr}</a></li>;
   }
 
   render() {
