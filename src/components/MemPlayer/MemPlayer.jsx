@@ -14,16 +14,23 @@ const throttle = pThrottle({
   interval: 250
 });
 
-function getRandomInt(min, max) {
+function getRandomInt(min, max, exclude) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  const int = Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  if (int === exclude) {
+    return getRandomInt(min, max, exclude);
+  }
+
+  return int;
 }
 
-class MemPlayer extends React.Component {
+class MemPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.defaultSound = new Tone.PolySynth().toDestination();
     this.addSoundButtonRef = React.createRef();
+    this.soundKeyRef = React.createRef();
   }
 
   state = {
@@ -63,8 +70,14 @@ class MemPlayer extends React.Component {
 
     console.debug(`note: ${note}${octave}`, `count: ${count}`);
     const availableSynths = this.state.soundKeys.filter((synth, index) => this.state.activeKeys.includes(index));
+
     if (availableSynths.length) {
-      availableSynths[noteIndex % availableSynths.length].triggerAttackRelease(`${note}${octave}`, `${count}n`);
+      const availableSynthIndex = noteIndex % availableSynths.length;
+      const synth = availableSynths[availableSynthIndex];
+      const keyId = this.state.soundKeys.indexOf(synth);
+      
+      this.flashSoundKeyById(keyId);
+      synth.triggerAttackRelease(`${note}${octave}`, `${count}n`);
     }
   
     const txObj = {
@@ -78,15 +91,15 @@ class MemPlayer extends React.Component {
     });  
   }
 
-  resetAddSoundButtonAnimation() {
-    this.addSoundButtonRef.current.style.animation = 'none';
+  resetHighlightAnimation(el) {
+    el.style.animation = 'none';
     /* eslint-disable no-unused-expressions */
-    this.addSoundButtonRef.current.offsetHeight; /* trigger reflow */
-    this.addSoundButtonRef.current.style.animation = null; 
+    el.offsetHeight; /* trigger reflow */
+    el.style.animation = null;
   }
 
   highlightAddButton = () => {
-    this.resetAddSoundButtonAnimation();
+    this.resetHighlightAnimation(this.addSoundButtonRef.current);
     if (this.state.highlighAddButton) return;
 
     this.setState({
@@ -94,9 +107,41 @@ class MemPlayer extends React.Component {
     });
   }
 
+  flashSoundKeyById = (keyId) => {
+    const children = this.soundKeyRef.current.children;
+
+    const keyEls = Array.from(children);
+    keyEls.forEach((el, i) => { 
+        el.classList.remove(styles.soundKey__flash);
+    })
+    
+    children[keyId].classList.add(styles.soundKey__flash);
+  }
+
+  highlightSoundKeyAndPlaySound = () => {
+    const keyEls = Array.from(this.soundKeyRef.current.children);
+    let excludeIndex;
+    keyEls.forEach((el, i) => {
+      if (el.classList.contains(styles.addSoundButton__highlight)) {
+        excludeIndex = i;
+        el.classList.remove(styles.addSoundButton__highlight);
+      }
+    })
+    
+    const keyId = getRandomInt(0, keyEls.length, excludeIndex);
+    this.state.soundKeys[keyId].triggerAttackRelease(`f${(keyId % 3) + 2}`, '32n');
+    this.soundKeyRef.current.children[keyId].classList.add(styles.addSoundButton__highlight);
+  }  
+
   toggleStream = () => {
-    if (this.state.soundKeys.length <= 0 && !this.state.isStreaming) {
+    if (this.state.soundKeys.length <= 0) {
       this.highlightAddButton();
+      return;
+    }
+
+    if (this.state.activeKeys.length <= 0) {
+      this.highlightSoundKeyAndPlaySound();
+      return;
     }
 
     const startStreaming = !this.state.isStreaming;
@@ -112,6 +157,13 @@ class MemPlayer extends React.Component {
         return;
       }
     } else {
+      const keyEls = Array.from(this.soundKeyRef.current.children);
+      keyEls.forEach((el, i) => {
+        if (el.classList.contains(styles.soundKey__flash)) {
+          el.classList.remove(styles.soundKey__flash);
+        }
+      })
+
       this.provider.off('pending', this.processTransaction);
     }
 
@@ -175,10 +227,13 @@ class MemPlayer extends React.Component {
     this.setState({ soundKeys });
   }
 
-  renderKey = (sound, keyId) => {
-    const keyState = !!this.state.activeKeys.includes(keyId) ? 'on' : 'off';
-    const shouldGlow = this.state.activeKeys.length === 0 && this.state.isStreaming  ;
-    const className = cn(styles.soundKey, styles[`soundKey__${keyState}`], {[styles.soundKey__glow]: shouldGlow});
+  renderKey = (sound, keyId, soundKeys) => {
+    const {
+      activeKeys
+    } = this.state;
+
+    const keyState = !!activeKeys.includes(keyId) ? 'on' : 'off';
+    const className = cn(styles.soundKey, styles[`soundKey__${keyState}`]);
 
     return (
       <div key={keyId} className={className} onClick={() => this.toggleKey(keyId)}></div>
@@ -214,14 +269,14 @@ class MemPlayer extends React.Component {
     } = this.state;
 
     const addSoundButtonClass = cn(styles.editSoundsButton, {[styles.addSoundButton__highlight]: this.state.highlighAddButton})
-    const playButtonIsDisabled = this.state.soundKeys.length === 0 && !this.state.isStreaming;
+    const playButtonIsDisabled = this.state.activeKeys.length === 0 && !this.state.isStreaming;
     const playButtonClass = cn(styles.playButton, {[styles.playButton__disabled]: playButtonIsDisabled})
     const playButtonText = isStreaming ? 'Stop' : 'Play';
     return (
       <div className='MemPlayer'>
         <div className={styles.title}><span className={styles.editSoundsButton} onClick={this.removeSound}>-</span> Play the Mempool <span className={addSoundButtonClass} onClick={this.addSound} ref={this.addSoundButtonRef}>+</span></div>
         <div className='controls'>
-          <div className={styles.keyboard}>
+          <div className={styles.keyboard} ref={this.soundKeyRef}>
             {this.state.soundKeys.map(this.renderKey)}      
           </div>
           <div className={styles.player}>

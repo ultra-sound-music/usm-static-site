@@ -1,31 +1,16 @@
 @import '../../styles/global.scss';
 
-@keyframes glow {
-  0%, 30% {
-    border-color: $color-mauve;
-  } 
-  70%, to {
-    border-color: $color-usm-yellow;
-  }
-}
-
 @keyframes higlight {
   0% {
     border-color: $color-purple;
   }
-  10% {
+  10%, 50% {
     border-color: $color-usm-yellow;
-  }
-  50% {
-    border-color: $color-usm-yellow;
+    box-shadow: 0 0 15px $color-usm-yellow;
   }
   to {
     border-color: $color-purple;
   }
-}
-
-.MemPlayer {
-
 }
 
 .editSoundsButton {
@@ -90,8 +75,12 @@
   background-color: $color-dark-gray;
 }
 
-.soundKey__glow {
-  animation: 2s ease-in 0s infinite alternate glow;
+.soundKey__highlight {
+  animation: 2s ease-in-out 0s 1 alternate higlight;
+}
+
+.soundKey__flash {
+  border-color: $color-usm-yellow
 }
 
 .player{
