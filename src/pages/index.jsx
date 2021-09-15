@@ -55,7 +55,7 @@ class Index extends React.Component {
         <Container adjustForNavBar={enableMemPlayer}>
           <div className='Index'>
             <div className={styles.logo}>
-              <img src={logo} className={styles.logoImg} alt="Logo" />
+              <img src={logo} className={styles.logoImg} alt="Logo" width="80px" height="120px" />
             </div>
             <div className={styles.header}>
               <h1 className={styles.title}>Ultra Sound Music</h1>
