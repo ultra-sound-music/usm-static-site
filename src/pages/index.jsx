@@ -22,7 +22,7 @@ class Index extends React.Component {
     if (memPlayerEnabled && WEBSOCKET_URL) {
       this.enableMemPlayer = true;
     } else {
-      console.error('Unable to initialize the MemPlayer. A Connection to an Ethereum node is required.');
+      console.debug('Skipping MemPlayer initialization');
     }    
   }
 
