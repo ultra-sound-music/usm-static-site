@@ -59,7 +59,7 @@ class Index extends React.Component {
             </div>
             <div className={styles.header}>
               <h1 className={styles.title}>Ultra Sound Music</h1>
-              <h2 className={styles.subtitle}>Building the crossroads between music and NFT’s. <br />Join our community to get notified on the launch.</h2>
+              <h2 className={styles.subtitle}>Building the crossroads between music and NFTs. <br />Join our community to get notified on the launch.</h2>
             </div>
 
             {!enableMemPlayer && this.renderSocialLinks()}
