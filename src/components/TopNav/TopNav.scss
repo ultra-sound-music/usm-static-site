@@ -1,13 +1,31 @@
 @import '../../styles/global.scss';
 
 .topNav {
+  display: flex;
+  justify-content: space-between;
   max-width: 1440px;
   margin: 0 auto;
   padding-top: 50px;
 }
 
+.mainNav {
+  display: flex;
+  align-items: center;
+}
+
+.memplayerLink {
+  color: $color-white;
+  font-size: $text-med-lrg;
+  margin-left: 100px;
+
+  &:hover {
+    color: $color-usm-yellow;
+  }
+}
+
 .social {
   display: flex;
+  align-items: center;
   justify-content: flex-end; 
   margin-right: 50px;
 }

@@ -1,17 +1,28 @@
 import React from 'react';
 import AppLayout from '../components/AppLayout/AppLayout';
 import Container from '../components/Container/Container';
+import MemPlayer from '../components/MemPlayer/MemPlayer';
 import logo from '../images/logo.png';
 
 import * as styles from './index.scss';
 
 const DISCORD_URL = process.env.GATSBY_DISCORD_URL;
 const TWITTER_URL = process.env.GATSBY_TWITTER_URL;
+const WEBSOCKET_URL = process.env.GATSBY_WS_URL;
 
 class Index extends React.Component {
   state = {
     hasMounted: false // Gatsby uses SSR. We use this flag to force React into re-rendering after hydrating the DOM on initial page load
   };
+
+  constructor(props) {
+    super(props);
+    if (WEBSOCKET_URL) {
+      this.enableMemPlayer = true;
+    } else {
+      console.debug('Skipping MemPlayer initialization');
+    }    
+  }
 
   componentDidMount() {
     this.setState({
@@ -29,12 +40,16 @@ class Index extends React.Component {
   }
 
   render () {
+    const {
+      enableMemPlayer = false
+    } = this;
+
     if (!this.state.hasMounted) {
       return null;
     }
 
     return (
-      <AppLayout withSocialLinks={false}>
+      <AppLayout withSocialLinks={true}>
         <Container adjustForNavBar={true}>
           <div className='Index'>
             <div className={styles.logo}>
@@ -42,10 +57,10 @@ class Index extends React.Component {
             </div>
             <div className={styles.header}>
               <h1 className={styles.title}>Ultra Sound Music</h1>
-              <h2 className={styles.subtitle}>Building the crossroads between music and NFTs. <br />Join our community to get notified on the launch.</h2>
+              <div className={styles.body}>Ever wonder what the mempool would sound like if it was an instrument?<br/>We wonder it all the time! So, we made this little player, see if you could figure it out...</div>
             </div>
 
-            {this.renderSocialLinks()}
+            {enableMemPlayer && <MemPlayer />}            
           </div>
         </Container>
       </AppLayout>      
