@@ -29,6 +29,13 @@
   line-height: 1.2em;
 }
 
+.body {
+  font-family: $font-family-body;
+  font-size: $text-body;
+  line-height: 1.4em;
+  letter-spacing: .4px;
+}
+
 .social {
   display: flex;
   justify-content: center;
