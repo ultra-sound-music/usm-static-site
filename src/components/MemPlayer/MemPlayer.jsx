@@ -105,6 +105,17 @@ class MemPlayer extends React.PureComponent {
     });  
   }
 
+  trackPlayEvent() {
+    if (!window.gtag) {
+      return;
+    }
+
+    window.gtag('event', 'play_memplayer', {
+      num_keys: this.state.soundKeys?.length,
+      num_keys_active: this.state.activeKeys?.length
+    });
+  }
+
   resetHighlightAnimation(el) {
     el.style.animation = 'none';
     /* eslint-disable no-unused-expressions */
@@ -136,6 +147,7 @@ class MemPlayer extends React.PureComponent {
   }
 
   startStream = () => {
+    this.trackPlayEvent();
     this.setState({
       isStreaming: true
     });
