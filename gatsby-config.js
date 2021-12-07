@@ -2,10 +2,13 @@ require('dotenv').config();
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://ultrasoundmusic.gatsbyjs.io/",
-    baseUrl: "http://localhost:8000",
+    siteLanguage: "en",
     title: "Ultra Sound Music",
-    siteLanguage: "en"
+    description: "Ultra Sound Music: A unique, collaborative platform for virtual musicians to publish generative music on the blockchain.",
+    siteUrl: "https://ultrasoundmusic.xyz",
+    baseUrl: "https://ultrasoundmusic.xyz",    
+    image: "/logo.png",
+    twitterUsername: "@usmproject",
   },
   plugins: [
     {
