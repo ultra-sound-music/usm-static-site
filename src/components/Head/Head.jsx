@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import logo from '../../images/logo.png';
 
 const Head = ({ post = {} }) => {
   const data = useStaticQuery(graphql`
@@ -12,7 +13,6 @@ const Head = ({ post = {} }) => {
           description
           siteUrl
           baseUrl
-          image
           twitterUsername
         }
       }
@@ -35,7 +35,7 @@ const Head = ({ post = {} }) => {
   const title = post.title || defaults.title;
   const description = post.description || defaults.description;
   const url = new URL(post.path || '', defaults.baseUrl);
-  const image = new URL(post.image || defaults.image, defaults.baseUrl);
+  const image = new URL(post.image || logo, defaults.baseUrl);
   const article = !!post.article;
 
   const attributes = {
@@ -58,9 +58,9 @@ const Head = ({ post = {} }) => {
       {image && <meta property="og:image" content={image} />}
 
       <meta name="twitter:card" content="summary_large_image" />
-
       {title && <meta name="twitter:title" content={title} />}
       {description && <meta name="twitter:description" content={description} />}
+      {twitterUsername && <meta name="twitter:site" content={twitterUsername} />}
       {twitterUsername && <meta name="twitter:creator" content={twitterUsername} />}
       {image && <meta name="twitter:image" content={image} />}
     </Helmet>

@@ -6,8 +6,7 @@ module.exports = {
     title: "Ultra Sound Music",
     description: "Ultra Sound Music: A unique, collaborative platform for virtual musicians to publish generative music on the blockchain.",
     siteUrl: "https://ultrasoundmusic.xyz",
-    baseUrl: "https://ultrasoundmusic.xyz",    
-    image: "/logo.png",
+    baseUrl: "https://ultrasoundmusic.xyz",
     twitterUsername: "@usmproject",
   },
   plugins: [
